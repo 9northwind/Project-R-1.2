@@ -1,0 +1,4 @@
+Gwallet/wallet-service-key.json
+Gwallet/firebase_key/*.json
+.env
+env/

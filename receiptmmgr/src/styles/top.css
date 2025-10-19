@@ -1,0 +1,42 @@
+.top{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+    grid-column: 1/4;
+    grid-row: 1;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: #F25912;
+
+    padding: 0 0 0 20px;
+    margin: 8px 0 0 0;
+
+    box-sizing: border-box;
+
+    border-radius: 10px;
+}
+
+.name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-start;
+
+
+    height: 80%;
+    width: 10%;
+
+    background-color: inherit;
+    border-radius: 10px;
+}
+
+h1{
+    color: white;
+    font-family: Bungee;
+    font-style: italic;
+    
+}
