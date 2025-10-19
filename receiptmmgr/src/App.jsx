@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Top from './components/top';
 import One from './components/one';
 import Two from './components/two';
@@ -15,17 +16,17 @@ function App() {
   }
 
   return (
-    <div className="main-container">
+    <Router >
+      <Routes>
 
-      <Top />
-      
-      <One onExtracted={handleDataExtracted} />
+        <Route path="/" element={<One onExtracted={handleDataExtracted} />} />
+        <Route path="/chat" element={<Two />} />
 
-      <Two />
+        <Route path="/receipts" element={<Three extractedData={extractedData} />} />
 
-      <Three extractedData={extractedData} />
-
-    </div>
+      </Routes>
+    </Router> 
+    
   )
 }
 

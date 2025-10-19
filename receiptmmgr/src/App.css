@@ -1,10 +1,7 @@
-.main-container{
-  display:grid;
-  grid-template-columns: 20% 1fr 30%;
-  grid-template-rows: 5% 15% 70% 10%;
-  height: 100vh;
-  width: 100vw;
-  background-color: #0F0E0E;
+html, body{
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
 
-  box-sizing: border-box;
+    margin: 0;
 }

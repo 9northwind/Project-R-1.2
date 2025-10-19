@@ -1,4 +1,6 @@
 import "../styles/feed.css"
+import Top from "./top.jsx";
+import Bottom from "./bottom.jsx";
 import { useEffect, useState } from "react";
 import { db } from "../firebase.js";
 import { collection, query, orderBy, onSnapshot, getDocs } from "firebase/firestore";
@@ -31,25 +33,35 @@ export default function Feed() {
 
   return (
     <div className="feed-container">
-      <div className="feed-grid">
-        {receipts.map((r) => (
-          <div className="wallet-card" key={r.id}>
-            <div className="wallet-header">
-              <span className="material-symbols-outlined">receipt_long</span>
-              <h3>{r.establishment_name || "Unknown Store"}</h3>
+
+      <Top />
+
+      <div className="feed">
+
+        <div className="feed-grid">
+          {receipts.map((r) => (
+            <div className="wallet-card" key={r.id}>
+              <div className="wallet-header">
+                <span className="material-symbols-outlined">receipt_long</span>
+                <h3>{r.establishment_name || "Unknown Store"}</h3>
+              </div>
+              <div className="wallet-body">
+                <p><strong>Total:</strong> ₹{r.total}</p>
+                <p><strong>Date:</strong> {r.date}</p>
+                <ul>
+                  {r.items?.map((i, idx) => (
+                    <li key={idx}>{i.item_name || i.name} x{i.quantity} - ₹{i.price}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="wallet-body">
-              <p><strong>Total:</strong> ₹{r.total}</p>
-              <p><strong>Date:</strong> {r.date}</p>
-              <ul>
-                {r.items?.map((i, idx) => (
-                  <li key={idx}>{i.item_name || i.name} x{i.quantity} - ₹{i.price}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
+
+      <Bottom />
+
     </div>
   );
 }
