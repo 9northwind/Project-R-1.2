@@ -11,15 +11,23 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
+
 }
 
 .display {
   flex: 1;
   overflow-y: auto;
   padding: 1rem;
+
   display: flex;
   flex-direction: column;
+  align-self: center;
+  justify-items: center;
+
+  width: 50%;
+
   gap: 0.5rem;
 }
 
@@ -46,19 +54,33 @@
 
 .chat-input {
   display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 0.5rem;
   background-color: #212121;
   gap: 0.5rem;
   border-top: 1px solid #212121;
 }
 
+.chat-input .text{
+  width: 40%;
+}
+
 .chat-input input.text {
-  flex: 1;
+  /* flex: 1; */
   padding: 0.6rem 1rem;
   border-radius: 20px;
   border: 1px solid #ccc;
   outline: none;
   min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .chat-input .text {
+    width: auto;
+    flex: 1;
+  }
 }
 
 .chat-input button.send {

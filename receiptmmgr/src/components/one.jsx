@@ -32,11 +32,11 @@ export default function One({ onExtracted }) {
 
 const handleExtractClick = async () => {
   if (!imageFile) {
-    setMessage("⚠️ Please upload an image first!");
+    setMessage("Please upload an image first!");
     return;
   }
 
-  setMessage("⏳ Extracting data... please wait.");
+  setMessage("Extracting data... please wait.");
 
   const formData = new FormData();
   formData.append("file", imageFile);
@@ -52,7 +52,7 @@ const handleExtractClick = async () => {
     if (data.status === "success") {
       console.log("Extracted Data:", data.data);
       setExtractedData(data.data);
-      setMessage("Extraction complete!");
+      setMessage("Extraction complete!. You can save the file now");
       onExtracted?.(data.data);
     } else {
       setMessage("Extraction failed: " + data.message);

@@ -109,6 +109,7 @@ export default function Two() {
             <span className="material-symbols-outlined">send</span>
           </button>
         </div>
+        
       </div>
 
       <Bottom />
