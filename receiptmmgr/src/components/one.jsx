@@ -10,6 +10,8 @@ export default function One({ onExtracted }) {
   const [imageURL, setImageURL] = useState(null);
   const [cameraOpen, setCameraOpen] = useState(false);
   const [extractedData, setExtractedData] = useState(null);
+  const [message, setMessage] = useState("");
+
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
@@ -28,34 +30,39 @@ export default function One({ onExtracted }) {
     document.getElementById("fileInput").click();
   };
 
-  const handleExtractClick = async () => {
-    if (!imageFile) {
-      alert("Please upload an image first!");
-      return;
+const handleExtractClick = async () => {
+  if (!imageFile) {
+    setMessage("⚠️ Please upload an image first!");
+    return;
+  }
+
+  setMessage("⏳ Extracting data... please wait.");
+
+  const formData = new FormData();
+  formData.append("file", imageFile);
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/extract-receipt", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      console.log("Extracted Data:", data.data);
+      setExtractedData(data.data);
+      setMessage("Extraction complete!");
+      onExtracted?.(data.data);
+    } else {
+      setMessage("Extraction failed: " + data.message);
     }
+  } catch (error) {
+    console.error("Error extracting data:", error);
+    setMessage("Failed to extract data due to a network error.");
+  }
+};
 
-    const formData = new FormData();
-    formData.append("file", imageFile);
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/extract-receipt", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (data.status === "success") {
-        console.log("Extracted Data:", data.data);
-        setExtractedData(data.data);
-        onExtracted?.(data.data);
-      } else {
-        alert("Extraction failed: " + data.message);
-      }
-    } catch (error) {
-      console.error("Error extracting data:", error);
-      alert("Failed to extract data.");
-    }
-  };
 
   const handleSaveClick = async () => {
     if (!extractedData) {
@@ -228,9 +235,15 @@ export default function One({ onExtracted }) {
             )}
             <canvas ref={canvasRef} style={{ display: "none" }} />
           </div>
+
+          <div className="status-message">
+            {message && <p>{message}</p>}
+          </div>
+
         </div>
 
-        <div className="preview">
+
+        {/* <div className="preview">
           <div className='preview-result'>
             {extractedData && (
               <div className="extracted-output">
@@ -239,7 +252,8 @@ export default function One({ onExtracted }) {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
+
       </div>
 
       <Bottom />

@@ -95,3 +95,14 @@
 
   box-sizing: border-box;
 }
+
+.status-message{
+  background-color: #212121;
+}
+
+.status-message p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: white;
+  margin-top: 10px;
+}
